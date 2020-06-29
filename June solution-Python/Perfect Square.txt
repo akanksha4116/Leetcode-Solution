@@ -1,0 +1,13 @@
+class Solution:
+    def numSquares(self, n: int) -> int:
+        x=int(sqrt(n))
+        if(x*x==n):
+            return 1
+        while(n%4==0):
+            n=n/4
+        if(n%8==7):
+            return 4
+        for j in range(int(sqrt(n)) + 1):
+            if int(sqrt(n - j*j))**2 == n - j*j: return 2
+        else:
+            return 3

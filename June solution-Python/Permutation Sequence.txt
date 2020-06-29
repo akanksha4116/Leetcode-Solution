@@ -1,0 +1,19 @@
+class Solution:
+    def getPermutation(self, n: int, k: int) -> str:
+       
+        letters=list(map(str,range(1,n+1)))
+        k=k-1
+        result =[]
+        while n >0:
+            fact=math.factorial(n-1)
+            i= k//fact
+            
+            result.append(letters[i])
+            
+            # new k and n as one positon has been fixed
+            letters.pop(i)
+            k=k%fact
+            n=n-1
+        return "".join(result)  
+
+        
