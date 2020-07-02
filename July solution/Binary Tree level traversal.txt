@@ -1,0 +1,16 @@
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        
+        res=defaultdict(list)
+        
+        def value(node,depth):
+            if node==None:
+                return
+            res[depth].append(node.val)
+            value(node.left,depth+1) ,value(node.right, depth+1)
+        l=[]  
+        value(root,0)
+        for val in res.values():
+            l.insert(0,val)
+        return l
+        
