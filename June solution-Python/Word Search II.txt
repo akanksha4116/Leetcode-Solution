@@ -1,0 +1,57 @@
+# Online Python compiler (interpreter) to run Python online.
+# Write Python 3 code in this online editor and run it.
+
+class Treenode():
+    def __init__(self):
+        self.children =defaultdict(Treenode)
+        self.end_word=False
+
+class Trie():
+    def __init__(self):
+        self.root=Treenode()
+    def insert(self,words):
+        if words is None:
+            return False
+        node=self.root
+        for w in words:
+            node=node.children[w]
+        node.end_word=True
+    def search(self,word):
+        if word is None:
+            return False
+        node=self.root
+        for w in word:
+            node=node.childern.get(w)
+            if not node:
+                return False
+        return node.end_word
+
+class Solution(object):
+    def findWords(self, board, words):
+        res = []
+        trie = Trie()
+        node = trie.root
+        for w in words:
+            trie.insert(w)
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                self.dfs(board,node,i, j, "",res)
+        return sorted(res)
+    def dfs(self,board,node,i,j, path, res):
+        if node.end_word:
+            res.append(path)
+            node.end_word=False
+        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]):
+            return
+        tmp=board[i][j]
+        node=node.children.get(tmp)
+        if not node:
+            return
+        board[i][j]="$"
+        self.dfs(board, node, i+1, j, path+tmp, res)
+        self.dfs(board, node, i-1, j, path+tmp, res)
+        self.dfs(board, node, i, j-1, path+tmp, res)
+        self.dfs(board, node, i, j+1, path+tmp, res)
+        board[i][j] = tmp
+        
+        
