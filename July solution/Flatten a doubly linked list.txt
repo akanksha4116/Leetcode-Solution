@@ -1,0 +1,32 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+class Solution:
+    def flatten(self, head: 'Node') -> 'Node':
+        def helper(node):
+            curr, prev=node,None
+            while(curr):
+                
+                if curr.child:
+                    # next of curr to add address of tail it in
+                    nxt=curr.next
+                    tail= helper(curr.child)
+                    curr.next,curr.child.prev=curr.child,curr
+                    curr.child=None
+                    tail.next=nxt
+                    if nxt:
+                        nxt.prev=tail
+                     
+                    
+                else:
+                    curr,prev=curr.next,curr
+            return prev
+
+        helper(head)
+        return head

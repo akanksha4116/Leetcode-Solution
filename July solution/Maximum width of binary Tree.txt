@@ -1,0 +1,28 @@
+class Solution(object):
+    def widthOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        width = 0
+        if root:
+            index = 1
+            curr = [ (root,index) ]  # current level
+            print(curr)
+            nxt = []   # next level
+            while curr or nxt:
+                left  = float('inf')
+                right = -float('inf')
+                for node,index in curr:
+                    left= min(left,index)
+                    right=max(right,index) # find right most index
+                    if node.left:
+                        nxt+=(node.left,2*index),
+                    if node.right:
+                        nxt+=(node.right,2*index+1),
+                curr = nxt
+                nxt = []
+                width = max(width, right-left+1) # calculate width of previous level
+        return width
+        
+                

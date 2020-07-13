@@ -1,0 +1,20 @@
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        m=len(digits)
+        if all([x==9 for x in digits]):
+                digits.append(0)
+                for i in range(1,m):
+                    digits[i]=0
+                digits[0]=1
+                return(digits)
+        for i in range(m-1,-1,-1):
+            
+            
+                
+            if(digits[i]==9):
+                digits[i]=0
+            else:
+                
+                digits[i]+=1
+                break
+        return(digits)
